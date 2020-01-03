@@ -20,8 +20,10 @@ public class DataProc {
     @Test
     public void XmlProc() throws IOException {
 
-        String dir = "C:\\Users\\zhouliwei\\Desktop\\综合课设\\blogs";
-        String dir2 = "C:\\Users\\zhouliwei\\Desktop\\综合课设\\blogs2";
+//        String dir = "C:\\Users\\zhouliwei\\Desktop\\综合课设\\blogs";
+//        String dir2 = "C:\\Users\\zhouliwei\\Desktop\\综合课设\\blogs2";
+        String dir = "D:\\study\\大四上\\综合课设\\blogs原始";
+        String dir2 = "D:\\study\\大四上\\综合课设\\blogs";
         File dirFile = new File(dir);
 
         if (dirFile.isDirectory()){
@@ -37,10 +39,17 @@ public class DataProc {
                 writer = new BufferedWriter(new FileWriter(file2));
                 String line;
                 while ((line=reader.readLine())!=null){
-                    if(line.contains("&")){
+                    line = line.trim();
+                    if(line.equals(""))
+                        continue;
+                    else if(line.equals("<post>"))
+                        writer.write(line+"\n\t");
+                    else if(line.contains("&")){
                         line = line.replace("&", " and ");
+                        writer.write(line+"\n");
                     }
-                    writer.write(line+"\n");
+                    else
+                        writer.write(line+"\n");
                     writer.flush();
                 }
             }
