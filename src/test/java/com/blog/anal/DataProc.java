@@ -20,17 +20,17 @@ public class DataProc {
     @Test
     public void XmlProc() throws IOException {
 
-//        String dir = "C:\\Users\\zhouliwei\\Desktop\\综合课设\\blogs";
-//        String dir2 = "C:\\Users\\zhouliwei\\Desktop\\综合课设\\blogs2";
-        String dir = "D:\\study\\大四上\\综合课设\\blogs原始";
-        String dir2 = "D:\\study\\大四上\\综合课设\\blogs";
+        String dir = "C:\\Users\\zhouliwei\\Desktop\\zhks\\blogs3";
+        String dir2 = "C:\\Users\\zhouliwei\\Desktop\\zhks\\blogs4";
         File dirFile = new File(dir);
 
         if (dirFile.isDirectory()){
             String[] list = dirFile.list();
             BufferedReader reader = null;
             BufferedWriter writer = null;
+            int i=0;
             for (String s : list) {
+                System.out.println("进度："+ ++i);
                 File file = new File(dir + "\\" + s);
                 File file2 = new File(dir2 + "\\" + s);
                 if(!file2.exists())
@@ -42,14 +42,25 @@ public class DataProc {
                     line = line.trim();
                     if(line.equals(""))
                         continue;
-                    else if(line.equals("<post>"))
+                    if(line.equals("<post>")){
                         writer.write(line+"\n\t");
-                    else if(line.contains("&")){
-                        line = line.replace("&", " and ");
-                        writer.write(line+"\n");
+                        continue;
                     }
-                    else
-                        writer.write(line+"\n");
+                    if(line.contains("&")){
+                        line = line.replace("&", " and ");
+                    }
+                    if (line.contains("<") || line.contains(">")) {
+                        if(line.equalsIgnoreCase("<Blog>") || line.equalsIgnoreCase("</Blog>")
+                        || line.contains("<date>") || line.contains("</date>")
+                        || line.contains("<post>") || line.contains("</post>")){
+
+                        } else {
+                            line = line.replace(">", " ");
+                            line = line.replace("<", " ");
+                        }
+                    }
+
+                    writer.write(line+"\n");
                     writer.flush();
                 }
             }
