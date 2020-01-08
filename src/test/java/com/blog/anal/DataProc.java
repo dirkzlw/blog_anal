@@ -5,11 +5,9 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * @author Ranger
@@ -20,8 +18,8 @@ public class DataProc {
     @Test
     public void XmlProc() throws IOException {
 
-        String dir = "C:\\Users\\zhouliwei\\Desktop\\zhks\\blogs3";
-        String dir2 = "C:\\Users\\zhouliwei\\Desktop\\zhks\\blogs4";
+        String dir = "C:\\Users\\zhouliwei\\Desktop\\zhks\\blogs";
+        String dir2 = "C:\\Users\\zhouliwei\\Desktop\\zhks\\blogs";
         File dirFile = new File(dir);
 
         if (dirFile.isDirectory()){
