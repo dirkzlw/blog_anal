@@ -1,10 +1,14 @@
 package com.blog.anal;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.spark.sql.sources.In;
 import org.junit.Test;
 
 /**
@@ -13,7 +17,7 @@ import org.junit.Test;
  */
 public class SexWordsCount {
     public static void main(String[] args) throws IOException {
-        String dir = "D:\\study\\大四上\\综合课设\\blogs";
+        String dir = "D:\\2019秋专业综合课程设计数据集\\3-博客作者身份分析\\testblog";
         File dirFile = new File(dir);
         String[] list = null;
         if (null != dirFile && dirFile.isDirectory()) {
@@ -55,12 +59,13 @@ public class SexWordsCount {
         Map<String, Integer> maleMap = Words.sexCountMap.get("male");
         Map<String, Integer> femaleMap = Words.sexCountMap.get("female");
         for (String word : maleMap.keySet()) {
-            System.out.println(word + "--" + maleMap.get(word));
+            System.out.println("male  " + word + "--" + maleMap.get(word));
         }
         for (String word : femaleMap.keySet()) {
-            System.out.println(word + "--" + femaleMap.get(word));
+            System.out.println("female  " + word + "--" + femaleMap.get(word));
         }
     }
+
 
     /**
      * 统计性别总词汇
@@ -70,7 +75,7 @@ public class SexWordsCount {
         Map<String, Long> sexMap = new HashMap<>();
         sexMap.put("male", 0l);
         sexMap.put("female", 0l);
-        String dir = "D:\\study\\大四上\\综合课设\\blogsTest";
+        String dir = "D:\\2019秋专业综合课程设计数据集\\3-博客作者身份分析\\blogs2";
         File dirFile = new File(dir);
         String[] list = null;
         if (null != dirFile && dirFile.isDirectory()) {
@@ -102,12 +107,15 @@ public class SexWordsCount {
         }
     }
 
+
+
+
     /**
      * 统计每个年龄段词的总数
      */
     @Test
     public void ageCoutAllWords() throws IOException {
-        String dir = "D:\\study\\大四上\\综合课设\\blogs";
+        String dir = "D:\\2019秋专业综合课程设计数据集\\3-博客作者身份分析\\testblog";
         File dirFile = new File(dir);
         String[] list = null;
         if (null != dirFile && dirFile.isDirectory()) {
@@ -175,7 +183,7 @@ public class SexWordsCount {
      */
     @Test
     public void countAgeWords() throws IOException {
-        String dir = "D:\\study\\大四上\\综合课设\\blogs";
+        String dir = "D:\\2019秋专业综合课程设计数据集\\3-博客作者身份分析\\blogs2";
         File dirFile = new File(dir);
         String[] list = null;
         if (null != dirFile && dirFile.isDirectory()) {
@@ -219,5 +227,69 @@ public class SexWordsCount {
         }
     }
 
+    /**
+     * 统计公共词
+     * @throws IOException
+     */
+    @Test
+    public void commonCountWords()throws IOException {
+        Map<String, Long> map = new HashMap<>();
+
+        map.put("money", 0l);
+        map.put("job", 0l);
+        map.put("sports", 0l);
+        map.put("tv", 0l);
+        map.put("sleep", 0l);
+        map.put("eating", 0l);
+        map.put("sex", 0l);
+        map.put("family", 0l);
+        map.put("friends", 0l);
+        String dir = "D:\\2019秋专业综合课程设计数据集\\3-博客作者身份分析\\blogs2";
+        File dirFile = new File(dir);
+        String[] list = null;
+        if (null != dirFile && dirFile.isDirectory()) {
+            list = dirFile.list();
+        }
+        int i = 0;
+        BufferedReader reader = null;
+        for (String s : list) {
+            System.out.println("进度：" + ++i);
+            reader = new BufferedReader(new FileReader(dir + "\\" + s));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.equalsIgnoreCase("<Blog>") || line.equalsIgnoreCase("</Blog>")
+                        || line.contains("<date>") || line.contains("</date>")
+                        || line.contains("<post>") || line.contains("</post>")) {
+
+                } else {
+                    String[] spilit = line.split(" ");
+                    for (String s1 : spilit) {
+                        if (s1.equalsIgnoreCase("money")) {
+                            map.put("money", map.get("money") + 1);
+                        } else if (s1.equalsIgnoreCase("job")) {
+                            map.put("job", map.get("job") + 1);
+                        } else if (s1.equalsIgnoreCase("sports")) {
+                            map.put("sports", map.get("sports") + 1);
+                        } else if (s1.equalsIgnoreCase("tv")) {
+                            map.put("tv", map.get("tv") + 1);
+                        } else if (s1.equalsIgnoreCase("sleep")) {
+                            map.put("sleep", map.get("sleep") + 1);
+                        } else if (s1.equalsIgnoreCase("eating")) {
+                            map.put("eating", map.get("eating") + 1);
+                        } else if (s1.equalsIgnoreCase("sex")) {
+                            map.put("sex", map.get("sex") + 1);
+                        } else if (s1.equalsIgnoreCase("family")) {
+                            map.put("family", map.get("family") + 1);
+                        } else if (s1.equalsIgnoreCase("friends")) {
+                            map.put("friends", map.get("friends") + 1);
+                        }
+                    }
+                }
+            }
+        }
+        for (String words : map.keySet()) {
+            System.out.println(words + "--" + map.get(words));
+        }
+    }
 
 }
