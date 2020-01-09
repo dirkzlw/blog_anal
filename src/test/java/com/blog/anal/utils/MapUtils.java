@@ -9,6 +9,7 @@ import java.util.Map;
  */
 public class MapUtils {
     public static Map<String, Integer> sexMap = new LinkedHashMap<>();
+    public static Map<String, Integer> ageMap = new LinkedHashMap<>();
     static {
         sexMap.put("linux", 0);
         sexMap.put("microsoft", 0);
@@ -40,5 +41,36 @@ public class MapUtils {
         sexMap.put("adorable", 0);
         sexMap.put("husband", 0);
         sexMap.put("hubby", 0);
+
+        ageMap.put("maths", 0);
+        ageMap.put("homework", 0);
+        ageMap.put("bored", 0);
+        ageMap.put("sis", 0);
+        ageMap.put("boring", 0);
+        ageMap.put("awesome", 0);
+        ageMap.put("mum", 0);
+        ageMap.put("crappy", 0);
+        ageMap.put("mad", 0);
+        ageMap.put("dumb", 0);
+        ageMap.put("semester", 0);
+        ageMap.put("apartment", 0);
+        ageMap.put("drunk", 0);
+        ageMap.put("beer", 0);
+        ageMap.put("student", 0);
+        ageMap.put("album", 0);
+        ageMap.put("college", 0);
+        ageMap.put("someday", 0);
+        ageMap.put("dating", 0);
+        ageMap.put("bar", 0);
+        ageMap.put("marriage", 0);
+        ageMap.put("development", 0);
+        ageMap.put("campaign", 0);
+        ageMap.put("tax", 0);
+        ageMap.put("local", 0);
+        ageMap.put("democratic", 0);
+        ageMap.put("son", 0);
+        ageMap.put("systems", 0);
+        ageMap.put("provide", 0);
+        ageMap.put("workers", 0);
     }
 }
